@@ -8,14 +8,13 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100vh;
-      overflow: auto;
+      height: 100%;
+      overflow: hidden;
     }
     .iframe-container {
       position: relative;
       width: 100%;
-      padding-bottom: 56.25%; /* 16:9 aspect ratio */
-      height: 0;
+      height: 100%;
       overflow: hidden;
     }
     .iframe-container iframe {
@@ -30,8 +29,7 @@
 </head>
 <body>
   <div class="iframe-container">
-    <iframe src="https://bruce-lee.streamlit.app/?embed=true"
-            style="width:100%;border:none;">
+    <iframe src="https://bruce-lee.streamlit.app/?embed=true">
       Your browser does not support iframes.
     </iframe>
   </div>
