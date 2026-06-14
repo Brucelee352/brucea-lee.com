@@ -1,42 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bruce's Analytics Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bruce Lee — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100vw;  /* Use viewport width */
-      height: 100vh; /* Use viewport height */
-      overflow: hidden;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-indigo:        #4F46E5;
+      --color-indigo-dark:   #4338CA;
+      --color-indigo-light:  #EEF2FF;
+      --color-indigo-muted:  #C7D2FE;
+      --color-pill-bg:       #E0E7FF;
+      --color-white:         #FFFFFF;
+      --color-heading:       #1E1B4B;
+      --color-body:          #374151;
+      --color-muted:         #6B7280;
     }
-    .iframe-container {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #EEF2FF 0%, #FFFFFF 55%, #F5F3FF 100%);
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--color-body);
+      -webkit-font-smoothing: antialiased;
     }
-    .iframe-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      border: 0;
-      margin: 0;
-      padding: 0;
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
- <div class="iframe-container">
-    <iframe 
-      src="https://bruce-lee.streamlit.app/?embed=true&embed_options=show_toolbar&embed_options=show_padding&embed_options=show_footer"
-      style="width:100vw;height:100vh;border:none;">
-      Your browser does not support iframes.
-    </iframe>
-  </div>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    const c = {
+      accent:        "#4F46E5",
+      accentHov:     "#4338CA",
+      pillBg:        "#E0E7FF",
+      pillText:      "#4F46E5",
+      cardBg:        "#FFFFFF",
+      cardBorder:    "#C7D2FE",
+      heading:       "#1E1B4B",
+      body:          "#374151",
+      muted:         "#6B7280",
+      white:         "#FFFFFF",
+    };
+
+    const s = {
+      page: {
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        padding: "0 1.5rem",
+      },
+      hero: {
+        maxWidth: "680px",
+        width: "100%",
+        textAlign: "center",
+        padding: "5rem 0 3rem",
+        animation: "fadeUp 0.5s ease both",
+      },
+      heroName: {
+        fontSize: "clamp(2rem, 5vw, 2.5rem)",
+        fontWeight: 700,
+        color: c.heading,
+        letterSpacing: "-0.01em",
+        marginBottom: "0.75rem",
+      },
+      heroTagline: {
+        fontSize: "1.125rem",
+        color: c.muted,
+        lineHeight: 1.7,
+      },
+      cards: {
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "1.5rem",
+        justifyContent: "center",
+        maxWidth: "680px",
+        width: "100%",
+        animation: "fadeUp 0.5s ease 0.15s both",
+      },
+      card: {
+        backgroundColor: c.cardBg,
+        border: `1px solid ${c.cardBorder}`,
+        borderRadius: "16px",
+        padding: "2rem",
+        minWidth: "260px",
+        maxWidth: "300px",
+        boxShadow: "0 2px 12px rgba(79, 70, 229, 0.10)",
+        transition: "box-shadow 0.2s ease, transform 0.2s ease",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        gap: "0.75rem",
+      },
+      cardHov: {
+        boxShadow: "0 6px 24px rgba(79, 70, 229, 0.20)",
+        transform: "translateY(-3px)",
+      },
+      label: {
+        fontSize: "0.75rem",
+        fontWeight: 600,
+        letterSpacing: "0.06em",
+        textTransform: "uppercase",
+        color: c.pillText,
+        backgroundColor: c.pillBg,
+        borderRadius: "9999px",
+        padding: "0.2rem 0.65rem",
+      },
+      cardTitle: {
+        fontSize: "1.125rem",
+        fontWeight: 600,
+        color: c.heading,
+      },
+      cardDesc: {
+        fontSize: "0.9375rem",
+        color: c.body,
+        lineHeight: 1.6,
+        flexGrow: 1,
+      },
+      btn: {
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "0.3rem",
+        backgroundColor: c.accent,
+        color: c.white,
+        border: "none",
+        borderRadius: "9999px",
+        padding: "0.625rem 1.5rem",
+        fontSize: "0.9375rem",
+        fontWeight: 600,
+        cursor: "pointer",
+        textDecoration: "none",
+        boxShadow: "0 2px 8px rgba(79, 70, 229, 0.25)",
+        transition: "background-color 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease",
+        marginTop: "auto",
+      },
+      btnHov: {
+        backgroundColor: c.accentHov,
+        boxShadow: "0 4px 16px rgba(79, 70, 229, 0.35)",
+        transform: "translateY(-1px)",
+      },
+      footer: {
+        marginTop: "3rem",
+        marginBottom: "2rem",
+        fontSize: "0.8125rem",
+        color: "#9CA3AF",
+        animation: "fadeUp 0.5s ease 0.3s both",
+      },
+    };
+
+    function ProjectButton({ href, children }) {
+      const [hov, setHov] = useState(false);
+      return (
+        <a
+          href={href}
+          style={{ ...s.btn, ...(hov ? s.btnHov : {}) }}
+          onMouseEnter={() => setHov(true)}
+          onMouseLeave={() => setHov(false)}
+        >
+          {children} <span aria-hidden="true">→</span>
+        </a>
+      );
+    }
+
+    function ProjectCard({ label, title, description, href }) {
+      const [hov, setHov] = useState(false);
+      return (
+        <div
+          style={{ ...s.card, ...(hov ? s.cardHov : {}) }}
+          onMouseEnter={() => setHov(true)}
+          onMouseLeave={() => setHov(false)}
+        >
+          {label && <span style={s.label}>{label}</span>}
+          <h2 style={s.cardTitle}>{title}</h2>
+          <p style={s.cardDesc}>{description}</p>
+          <ProjectButton href={href}>View Project</ProjectButton>
+        </div>
+      );
+    }
+
+    const projects = [
+      {
+        label: "Analytics",
+        title: "Mental Health Dashboard",
+        description: "Interactive analytics exploring mental health trends and patterns across demographics.",
+        href: "https://brucea-lee.com/mh",
+      },
+      {
+        label: "Labor Economics",
+        title: "Underemployment Tracker",
+        description: "Data-driven visualizations of underemployment trends and workforce utilization metrics.",
+        href: "https://brucea-lee.com/underemployment",
+      },
+    ];
+
+    function App() {
+      return (
+        <div style={s.page}>
+          <header style={s.hero}>
+            <h1 style={s.heroName}>Bruce Lee</h1>
+            <p style={s.heroTagline}>Analytics portfolio — select a project below.</p>
+            <hr style={{ margin: "14px 0", border: "none", borderTop: "1px solid #C7D2FE" }} />
+            <p style={{ fontWeight: 600, fontSize: "12px", color: "#1E1B4B", marginBottom: "8px" }}>Connect</p>
+            <div style={{ display: "flex", gap: "2rem", justifyContent: "center" }}>
+              <div>
+                <a href="https://github.com/brucelee352" target="_blank" rel="noopener noreferrer"
+                   style={{ fontSize: "12px", color: "#4F46E5", display: "block", marginBottom: "6px", textDecoration: "none" }}>
+                  GitHub
+                </a>
+                <a href="https://linkedin.com/in/brucealee" target="_blank" rel="noopener noreferrer"
+                   style={{ fontSize: "12px", color: "#4F46E5", display: "block", marginBottom: "6px", textDecoration: "none" }}>
+                  LinkedIn
+                </a>
+              </div>
+              <div>
+                <a href="https://github.com/Brucelee352/marketplace_pipeline/blob/master/misc/BruceLee_2026Resume_b.pdf"
+                   target="_blank" rel="noopener noreferrer"
+                   style={{ fontSize: "12px", color: "#4F46E5", display: "block", marginBottom: "6px", textDecoration: "none" }}>
+                  Resume
+                </a>
+                <a href="mailto:brucelee352@gmail.com"
+                   style={{ fontSize: "12px", color: "#4F46E5", display: "block", marginBottom: "6px", textDecoration: "none" }}>
+                  brucelee352@gmail.com
+                </a>
+              </div>
+            </div>
+          </header>
+
+          <main style={s.cards}>
+            {projects.map((p) => (
+              <ProjectCard key={p.title} {...p} />
+            ))}
+          </main>
+
+          <footer style={s.footer}>
+            &copy; {new Date().getFullYear()} Bruce Lee
+          </footer>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
 </body>
-</html> 
+</html>
