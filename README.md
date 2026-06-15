@@ -1,5 +1,4 @@
 # brucea-lee.com — Portfolio Version 3
----
 
 ## Overview:
 
