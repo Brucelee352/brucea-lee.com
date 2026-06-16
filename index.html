@@ -44,13 +44,12 @@
   </style>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 <body>
   <div id="root"></div>
 
-  <script type="text/babel">
-    const { useState } = React;
+  <script>
+    const { useState, createElement: h } = React;
 
     const c = {
       accent:        "#4F46E5",
@@ -103,7 +102,7 @@
       },
       card: {
         backgroundColor: c.cardBg,
-        border: `1px solid ${c.cardBorder}`,
+        border: "1px solid " + c.cardBorder,
         borderRadius: "16px",
         padding: "2rem",
         minWidth: "260px",
@@ -171,33 +170,39 @@
       },
     };
 
+    const linkStyle = {
+      fontSize: "14px",
+      color: "#4F46E5",
+      display: "flex",
+      flexDirection: "row",
+      marginBottom: "10px",
+      textDecoration: "none",
+    };
+
     function ProjectButton({ href, children }) {
       const [hov, setHov] = useState(false);
-      return (
-        <a
-          href={href}
-          style={{ ...s.btn, ...(hov ? s.btnHov : {}) }}
-          onMouseEnter={() => setHov(true)}
-          onMouseLeave={() => setHov(false)}
-        >
-          {children} <span aria-hidden="true">→</span>
-        </a>
+      return h('a', {
+        href: href,
+        style: Object.assign({}, s.btn, hov ? s.btnHov : {}),
+        onMouseEnter: () => setHov(true),
+        onMouseLeave: () => setHov(false),
+      },
+        children, ' ',
+        h('span', { 'aria-hidden': 'true' }, '→')
       );
     }
 
     function ProjectCard({ label, title, description, href }) {
       const [hov, setHov] = useState(false);
-      return (
-        <div
-          style={{ ...s.card, ...(hov ? s.cardHov : {}) }}
-          onMouseEnter={() => setHov(true)}
-          onMouseLeave={() => setHov(false)}
-        >
-          {label && <span style={s.label}>{label}</span>}
-          <h2 style={s.cardTitle}>{title}</h2>
-          <p style={s.cardDesc}>{description}</p>
-          <ProjectButton href={href}>View</ProjectButton>
-        </div>
+      return h('div', {
+        style: Object.assign({}, s.card, hov ? s.cardHov : {}),
+        onMouseEnter: () => setHov(true),
+        onMouseLeave: () => setHov(false),
+      },
+        label && h('span', { style: s.label }, label),
+        h('h2', { style: s.cardTitle }, title),
+        h('p', { style: s.cardDesc }, description),
+        h(ProjectButton, { href: href }, 'View')
       );
     }
 
@@ -229,52 +234,33 @@
     ];
 
     function App() {
-      return (
-        <div style={s.page}>
-          <header style={s.hero}>
-            <h1 style={s.heroName}>Bruce A. Lee</h1>
-            <p style={s.heroTagline}>Analytics Engineer, please select a project below:</p>
-            <hr style={{ margin: "14px 0", border: "none", borderTop: "1px solid #C7D2FE" }} />
-            <p style={{ fontWeight: 600, fontSize: "18px", color: "#1E1B4B", marginBottom: "12px" }}>Connect:</p>
-            <div style={{ display: "flex", gap: "2rem", justifyContent: "center" }}>
-              <div>
-                <a href="https://github.com/brucelee352" target="_blank" rel="noopener noreferrer"
-                   style={{ fontSize: "14px", color: "#4F46E5", display: "flex", flexDirection: "row", marginBottom: "10px", textDecoration: "none" }}>
-                  GitHub
-                </a>
-                <a href="https://linkedin.com/in/brucealee" target="_blank" rel="noopener noreferrer"
-                   style={{ fontSize: "14px", color: "#4F46E5", display: "flex", flexDirection: "row", marginBottom: "10px", textDecoration: "none" }}>
-                  LinkedIn
-                </a>
-              </div>
-              <div>
-                <a href="https://github.com/Brucelee352/marketplace_pipeline/blob/master/misc/BruceLee_2026Resume_b.pdf"
-                   target="_blank" rel="noopener noreferrer"
-                   style={{ fontSize: "14px", color: "#4F46E5", display: "flex", flexDirection: "row", marginBottom: "10px", textDecoration: "none" }}>
-                  Resume
-                </a>
-                <a href="mailto:brucelee352@gmail.com"
-                   style={{ fontSize: "14px", color: "#4F46E5", display: "flex", flexDirection: "row", marginBottom: "10px", textDecoration: "none" }}>
-                  Email
-                </a>
-              </div>
-            </div>
-          </header>
-
-          <main style={s.cards}>
-            {projects.map((p) => (
-              <ProjectCard key={p.title} {...p} />
-            ))}
-          </main>
-
-          <footer style={s.footer}>
-            &copy; {new Date().getFullYear()} Bruce Lee
-          </footer>
-        </div>
+      return h('div', { style: s.page },
+        h('header', { style: s.hero },
+          h('h1', { style: s.heroName }, 'Bruce A. Lee'),
+          h('p', { style: s.heroTagline }, 'Analytics Engineer, please select a project below:'),
+          h('hr', { style: { margin: "14px 0", border: "none", borderTop: "1px solid #C7D2FE" } }),
+          h('p', { style: { fontWeight: 600, fontSize: "18px", color: "#1E1B4B", marginBottom: "12px" } }, 'Connect:'),
+          h('div', { style: { display: "flex", gap: "2rem", justifyContent: "center" } },
+            h('div', null,
+              h('a', { href: "https://github.com/brucelee352", target: "_blank", rel: "noopener noreferrer", style: linkStyle }, 'GitHub'),
+              h('a', { href: "https://linkedin.com/in/brucealee", target: "_blank", rel: "noopener noreferrer", style: linkStyle }, 'LinkedIn')
+            ),
+            h('div', null,
+              h('a', { href: "https://github.com/Brucelee352/marketplace_pipeline/blob/master/misc/BruceLee_2026Resume_b.pdf", target: "_blank", rel: "noopener noreferrer", style: linkStyle }, 'Resume'),
+              h('a', { href: "mailto:brucelee352@gmail.com", style: linkStyle }, 'Email')
+            )
+          )
+        ),
+        h('main', { style: s.cards },
+          projects.map((p) => h(ProjectCard, { key: p.title, label: p.label, title: p.title, description: p.description, href: p.href }))
+        ),
+        h('footer', { style: s.footer },
+          '© ' + new Date().getFullYear() + ' Bruce Lee'
+        )
       );
     }
 
-    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    ReactDOM.createRoot(document.getElementById('root')).render(h(App, null));
   </script>
 </body>
 </html>
