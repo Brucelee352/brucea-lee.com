@@ -30,13 +30,16 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    /* Render the page content at 87% scale, like zooming the browser out to 87% */
+    #root { zoom: 0.87; }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(12px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
     /* Portfolio section: layout and styling adapted from astro-portfolio-theme's Portfolio.astro */
-    .pf-section { width: 100%; max-width: 1300px; padding-top: 0.1rem; animation: fadeUp 0.5s ease 0.15s both; }
+    .pf-section { width: 100%; max-width: 1600px; padding-top: 0.1rem; animation: fadeUp 0.5s ease 0.15s both; }
     .pf-head { text-align: center; margin-bottom: 2rem; }
     .pf-eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-indigo); margin-bottom: 0.5rem; }
     .pf-title { font-size: clamp(1.9rem, 4vw, 2.6rem); font-weight: 700; color: var(--color-heading); letter-spacing: -0.01em; }
@@ -79,11 +82,11 @@
       color: var(--color-muted); border: 1px solid var(--color-indigo-muted); background: #F8FAFF;
     }
 
-    .pf-flow { list-style: none; display: flex; align-items: stretch; gap: 0.4rem; margin: 1.1rem 0 1.25rem; padding-top: 1rem; border-top: 1px solid var(--color-indigo-light); }
-    .pf-step { flex: 1; min-width: 0; background: var(--color-indigo-light); border-radius: 0.65rem; padding: 0.55rem 0.75rem; }
+    .pf-flow { list-style: none; display: flex; flex-direction: column; align-items: stretch; gap: 0.1rem; margin: 1.1rem 0 1.25rem; padding-top: 1rem; border-top: 1px solid var(--color-indigo-light); }
+    .pf-step { min-width: 0; text-align: left; background: var(--color-indigo-light); border-radius: 0.65rem; padding: 0.55rem 0.75rem; }
     .pf-step-name { display: block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-indigo); margin-bottom: 0.2rem; }
     .pf-step-detail { display: block; font-size: 0.78rem; line-height: 1.45; color: var(--color-body); }
-    .pf-arrow { align-self: center; flex: none; color: var(--color-indigo-muted); font-weight: 700; line-height: 1; }
+    .pf-arrow { align-self: center; flex: none; color: var(--color-indigo-muted); font-size: 0.75rem; font-weight: 700; line-height: 1; transform: rotate(90deg); }
 
     @media (max-width: 1000px) {
       .pf-list { grid-template-columns: 1fr; }
@@ -135,7 +138,7 @@
         maxWidth: "680px",
         width: "100%",
         textAlign: "center",
-        padding: "5rem 0 3rem",
+        padding: "2.5rem 0 3rem",
         animation: "fadeUp 0.5s ease both",
       },
       heroName: {
@@ -240,7 +243,7 @@
       "Health Analytics":    "#6366f1",
       "Labor Economics":     "#0ea5e9",
       "Product Analytics":   "#10b981",
-      "Employment Sourcing": "#ec4899",
+      "Job Market Analytics": "#ec4899",
     };
 
     const projects = [
@@ -284,7 +287,7 @@
         href: "https://kro.brucea-lee.com",
       },
       {
-        category: "Employment Sourcing",
+        category: "Job Market Analytics",
         title: "Jooble.com Job Listings Dashboard",
         description: "Searches the Jooble API for job listings and reads each snippet for seniority, minimum years of experience, skills, and salary converted to an annual figure. Results go on a US map, five charts, and a sortable table you can email to yourself as a CSV.",
         stack: ["Python", "Dash", "Mantine", "Cloud Run", "Gmail SMTP"],
