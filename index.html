@@ -35,6 +35,61 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* Portfolio section: layout and styling adapted from astro-portfolio-theme's Portfolio.astro */
+    .pf-section { width: 100%; max-width: 980px; padding-top: 1rem; animation: fadeUp 0.5s ease 0.15s both; }
+    .pf-head { text-align: center; margin-bottom: 2rem; }
+    .pf-eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-indigo); margin-bottom: 0.6rem; }
+    .pf-title { font-size: clamp(1.9rem, 4vw, 2.6rem); font-weight: 700; color: var(--color-heading); letter-spacing: -0.01em; }
+    .pf-sub { margin-top: 0.75rem; font-size: 1rem; color: var(--color-muted); }
+
+    .pf-list {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem; align-items: stretch;
+    }
+    .pf-bar {
+      display: flex; flex-direction: column;
+      position: relative; overflow: hidden;
+      background: var(--color-white); border: 1px solid var(--color-indigo-muted); border-radius: 0.875rem;
+      box-shadow: 0 4px 20px rgba(79,70,229,.08);
+      padding: 1.5rem 1.75rem 1.5rem 2rem;
+      animation: fadeUp 0.45s ease both; animation-delay: var(--delay);
+      transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s ease, border-color .3s ease;
+    }
+    .pf-bar::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--color); opacity: .55; transition: opacity .3s ease; }
+    .pf-bar:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(79,70,229,.18), 0 0 0 1px var(--color); border-color: var(--color); }
+    .pf-bar:hover::before { opacity: 1; }
+
+    /* Unwrap the top row so the View button can sit at the bottom of each card */
+    .pf-bar-top { display: contents; }
+    .pf-bar-main { order: 1; min-width: 0; }
+    .pf-flow { order: 2; }
+    .pf-bar-top > a { order: 3; align-self: flex-start; margin-top: auto; }
+    .pf-badge {
+      display: inline-block; padding: 0.18rem 0.6rem; border-radius: 9999px;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      background: var(--color-pill-bg); color: var(--color-indigo);
+      transition: background .2s ease, color .2s ease;
+    }
+    .pf-bar:hover .pf-badge { background: var(--color); color: #fff; }
+    .pf-bar-title { margin-top: 0.55rem; font-size: 1.2rem; font-weight: 700; color: var(--color-heading); }
+    .pf-bar-desc { margin-top: 0.4rem; font-size: 0.92rem; line-height: 1.6; color: var(--color-body); max-width: 70ch; }
+    .pf-stack { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.75rem; }
+    .pf-chip {
+      padding: 0.15rem 0.55rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 600;
+      color: var(--color-muted); border: 1px solid var(--color-indigo-muted); background: #F8FAFF;
+    }
+
+    .pf-flow { list-style: none; display: flex; flex-direction: column; align-items: stretch; gap: 0.3rem; margin: 1.1rem 0 1.25rem; padding-top: 1rem; border-top: 1px solid var(--color-indigo-light); }
+    .pf-step { min-width: 0; background: var(--color-indigo-light); border-radius: 0.65rem; padding: 0.55rem 0.75rem; }
+    .pf-step-name { display: block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-indigo); margin-bottom: 0.2rem; }
+    .pf-step-detail { display: block; font-size: 0.78rem; line-height: 1.45; color: var(--color-body); }
+    .pf-arrow { align-self: center; color: var(--color-indigo-muted); font-weight: 700; line-height: 1; transform: rotate(90deg); }
+
+    @media (max-width: 720px) {
+      .pf-list { grid-template-columns: 1fr; }
+      .pf-bar { padding: 1.25rem 1.25rem 1.25rem 1.5rem; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -91,54 +146,6 @@
         color: c.muted,
         lineHeight: 1.7,
       },
-      cards: {
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "1.5rem",
-        justifyContent: "center",
-        maxWidth: "680px",
-        width: "100%",
-        animation: "fadeUp 0.5s ease 0.15s both",
-      },
-      card: {
-        backgroundColor: c.cardBg,
-        border: "1px solid " + c.cardBorder,
-        borderRadius: "16px",
-        padding: "2rem",
-        minWidth: "260px",
-        maxWidth: "300px",
-        boxShadow: "0 2px 12px rgba(79, 70, 229, 0.10)",
-        transition: "box-shadow 0.2s ease, transform 0.2s ease",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",
-        gap: "0.75rem",
-      },
-      cardHov: {
-        boxShadow: "0 6px 24px rgba(79, 70, 229, 0.20)",
-        transform: "translateY(-3px)",
-      },
-      label: {
-        fontSize: "0.75rem",
-        fontWeight: 600,
-        letterSpacing: "0.06em",
-        textTransform: "uppercase",
-        color: c.pillText,
-        backgroundColor: c.pillBg,
-        borderRadius: "9999px",
-        padding: "0.2rem 0.65rem",
-      },
-      cardTitle: {
-        fontSize: "1.125rem",
-        fontWeight: 600,
-        color: c.heading,
-      },
-      cardDesc: {
-        fontSize: "0.9375rem",
-        color: c.body,
-        lineHeight: 1.6,
-        flexGrow: 1,
-      },
       btn: {
         display: "inline-flex",
         alignItems: "center",
@@ -154,7 +161,8 @@
         textDecoration: "none",
         boxShadow: "0 2px 8px rgba(79, 70, 229, 0.25)",
         transition: "background-color 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease",
-        marginTop: "auto",
+        flex: "none",
+        whiteSpace: "nowrap",
       },
       btnHov: {
         backgroundColor: c.accentHov,
@@ -192,58 +200,117 @@
       );
     }
 
-    function ProjectCard({ label, title, description, href }) {
-      const [hov, setHov] = useState(false);
-      return h('div', {
-        style: Object.assign({}, s.card, hov ? s.cardHov : {}),
-        onMouseEnter: () => setHov(true),
-        onMouseLeave: () => setHov(false),
+    function PipelineFlow({ steps }) {
+      const items = [];
+      steps.forEach((st, i) => {
+        if (i > 0) items.push(h('li', { key: 'arrow' + i, className: 'pf-arrow', 'aria-hidden': 'true' }, '→'));
+        items.push(h('li', { key: st.name, className: 'pf-step' },
+          h('span', { className: 'pf-step-name' }, st.name),
+          h('span', { className: 'pf-step-detail' }, st.detail)
+        ));
+      });
+      return h('ol', { className: 'pf-flow', 'aria-label': 'Pipeline stages' }, items);
+    }
+
+    function ProjectBar({ project, index }) {
+      return h('article', {
+        className: 'pf-bar',
+        style: { '--color': categoryColors[project.category] || '#6366f1', '--delay': (index * 0.05) + 's' },
       },
-        label && h('span', { style: s.label }, label),
-        h('h2', { style: s.cardTitle }, title),
-        h('p', { style: s.cardDesc }, description),
-        h(ProjectButton, { href: href }, 'View')
+        h('div', { className: 'pf-bar-top' },
+          h('div', { className: 'pf-bar-main' },
+            h('span', { className: 'pf-badge' }, project.category),
+            h('h3', { className: 'pf-bar-title' }, project.title),
+            h('p', { className: 'pf-bar-desc' }, project.description),
+            project.stack && h('div', { className: 'pf-stack' },
+              project.stack.map((t) => h('span', { key: t, className: 'pf-chip' }, t))
+            )
+          ),
+          h(ProjectButton, { href: project.href }, 'View')
+        ),
+        project.pipeline && h(PipelineFlow, { steps: project.pipeline })
       );
     }
 
+    const categoryColors = {
+      "Health Analytics":    "#6366f1",
+      "Labor Economics":     "#0ea5e9",
+      "Product Analytics":   "#10b981",
+      "Employment Sourcing": "#ec4899",
+    };
+
     const projects = [
       {
-        label: "Health Analytics",
+        category: "Health Analytics",
         title: "Mental Health Dashboard",
-        description: "Analytics exploring ACA insurance offerings that feature mental health coverage between several Florida counties.",
+        description: "Scores every individual ACA Marketplace plan in twelve Florida counties from 0 to 100 on mental health coverage. The outpatient therapy copay is worth 40 points, the in-network deductible 25, covered mental health benefits 20, and the CMS quality rating 15.",
+        stack: ["Python", "DuckDB", "dbt", "Dash", "Cloud Run"],
+        pipeline: [
+          { name: "Extract",   detail: "Paginated POST /plans/search calls to the CMS Marketplace API, one sweep per county" },
+          { name: "Load",      detail: "Six raw tables in DuckDB, plus timestamped CSV snapshots for auditing" },
+          { name: "Transform", detail: "dbt staging views, an SCD Type 2 plan snapshot, then dimension and fact tables" },
+          { name: "Serve",     detail: "Dash app reads the scored fact tables read-only, served by gunicorn" },
+        ],
         href: "https://aca.brucea-lee.com",
       },
       {
-        label: "Labor Economics",
+        category: "Labor Economics",
         title: "BLS Underemployment Tracker",
-        description: "Data-driven visualizations of underemployment trends and workforce utilization metrics using CPS microdata.",
+        description: "Rebuilds the BLS U-3 through U-6 unemployment rates for every state from 1.2 million CPS person records, January to October 2026. National figures land within 0.01 points of BLS Table A-15. It also measures how many hours involuntary part-timers fall short of full time, and how often workers have more schooling than their occupation usually calls for.",
+        stack: ["Python", "DuckDB", "BLS API", "Dash", "Cloud Run"],
+        pipeline: [
+          { name: "Ingest",   detail: "Ten monthly CPS public-use files, weighted with PWCMPWGT and averaged per month" },
+          { name: "Measure",  detail: "U-3 to U-6, the hours gap, and overqualification at one SD above the occupation's mean schooling" },
+          { name: "Validate", detail: "Checked against BLS Table A-15 pulled from the BLS Public Data API v2" },
+          { name: "Serve",    detail: "A 52-row DuckDB table behind a Dash choropleth and state comparisons" },
+        ],
         href: "https://emp.brucea-lee.com",
       },
       {
-        label: "Product Analytics",
+        category: "Product Analytics",
         title: "Kroger Product Analysis",
-        description: "A deep-dive into Kroger's product and fulfillment data, supplemented by their public API.",
+        description: "Pulls product, price, and store data from the Kroger Public API for eight grocery categories at stores near ten US zip codes. A full run makes about 165 API calls and takes two to five minutes. The dashboard covers price spread, stock levels, promo discounts, and fulfillment by store.",
+        stack: ["Python", "OAuth2", "DuckDB", "dbt", "Dash"],
+        pipeline: [
+          { name: "Extract",   detail: "OAuth2 token, store lookup by zip code, then product and price fetches per store" },
+          { name: "Load",      detail: "Upserts into raw locations, products, and product_prices tables in DuckDB" },
+          { name: "Transform", detail: "dbt staging, dimensions, a price fact table, and three mart aggregates" },
+          { name: "Serve",     detail: "Five Dash charts built from the marts, including a store map" },
+        ],
         href: "https://kro.brucea-lee.com",
       },
       {
-        label: "Employment Sourcing",
+        category: "Employment Sourcing",
         title: "Jooble.com Job Listings Dashboard",
-        description: "An app that calls the jooble.com API and then serves that data to a dashboard and data viewer.",
+        description: "Searches the Jooble API for job listings and reads each snippet for seniority, minimum years of experience, skills, and salary converted to an annual figure. Results go on a US map, five charts, and a sortable table you can email to yourself as a CSV.",
+        stack: ["Python", "Dash", "Mantine", "Cloud Run", "Gmail SMTP"],
+        pipeline: [
+          { name: "Fetch",   detail: "Jooble API search by keyword, location, and remote flag, up to 21 days back" },
+          { name: "Parse",   detail: "Seniority, years of experience, about 45 skills, and salary as annual USD" },
+          { name: "Geocode", detail: "About 60 major cities, falling back to state centroids" },
+          { name: "Serve",   detail: "Dash app on Cloud Run with the API key in Secret Manager; CSVs mailed over SMTP" },
+        ],
         href: "https://jooble.brucea-lee.com",
       },
-      {
-        label: "Misc.",
-        title: "Legacy Projects",
-        description: "An older version of my portfolio with all of my legacy projects in R and Python.",
-        href: "https://brucelee352.github.io/",
-      },
     ];
+
+    function Portfolio() {
+      return h('section', { id: 'portfolio', className: 'pf-section' },
+        h('div', { className: 'pf-head' },
+          h('p', { className: 'pf-eyebrow' }, 'Analytics Engineering'),
+          h('h2', { className: 'pf-title' }, 'Portfolio'),
+          h('p', { className: 'pf-sub' }, 'Each project runs from a public API or dataset to a live dashboard.')
+        ),
+        h('div', { className: 'pf-list' },
+          projects.map((p, i) => h(ProjectBar, { key: p.title, project: p, index: i }))
+        )
+      );
+    }
 
     function App() {
       return h('div', { style: s.page },
         h('header', { style: s.hero },
           h('h1', { style: s.heroName }, 'Bruce A. Lee'),
-          h('p', { style: s.heroTagline }, 'Analytics Engineer, please select a project below:'),
           h('hr', { style: { margin: "14px 0", border: "none", borderTop: "1px solid #C7D2FE" } }),
           h('p', { style: { fontWeight: 600, fontSize: "18px", color: "#1E1B4B", marginBottom: "12px" } }, 'Connect:'),
           h('div', { style: { display: "flex", gap: "2rem", justifyContent: "center" } },
@@ -257,8 +324,8 @@
             )
           )
         ),
-        h('main', { style: s.cards },
-          projects.map((p) => h(ProjectCard, { key: p.title, label: p.label, title: p.title, description: p.description, href: p.href }))
+        h('main', { style: { width: "100%", display: "flex", justifyContent: "center" } },
+          h(Portfolio, null)
         ),
         h('footer', { style: s.footer },
           '© ' + new Date().getFullYear() + ' Bruce Lee'
