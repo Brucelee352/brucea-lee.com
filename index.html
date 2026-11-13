@@ -36,9 +36,9 @@
     }
 
     /* Portfolio section: layout and styling adapted from astro-portfolio-theme's Portfolio.astro */
-    .pf-section { width: 100%; max-width: 980px; padding-top: 1rem; animation: fadeUp 0.5s ease 0.15s both; }
+    .pf-section { width: 100%; max-width: 1300px; padding-top: 0.1rem; animation: fadeUp 0.5s ease 0.15s both; }
     .pf-head { text-align: center; margin-bottom: 2rem; }
-    .pf-eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-indigo); margin-bottom: 0.6rem; }
+    .pf-eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-indigo); margin-bottom: 0.5rem; }
     .pf-title { font-size: clamp(1.9rem, 4vw, 2.6rem); font-weight: 700; color: var(--color-heading); letter-spacing: -0.01em; }
     .pf-sub { margin-top: 0.75rem; font-size: 1rem; color: var(--color-muted); }
 
@@ -65,29 +65,33 @@
     .pf-flow { order: 2; }
     .pf-bar-top > a { order: 3; align-self: flex-start; margin-top: auto; }
     .pf-badge {
-      display: inline-block; padding: 0.18rem 0.6rem; border-radius: 9999px;
+      display: inline-block; padding: 0.20rem 0.6rem; border-radius: 9999px;
       font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
       background: var(--color-pill-bg); color: var(--color-indigo);
       transition: background .2s ease, color .2s ease;
     }
     .pf-bar:hover .pf-badge { background: var(--color); color: #fff; }
-    .pf-bar-title { margin-top: 0.55rem; font-size: 1.2rem; font-weight: 700; color: var(--color-heading); }
-    .pf-bar-desc { margin-top: 0.4rem; font-size: 0.92rem; line-height: 1.6; color: var(--color-body); max-width: 70ch; }
+    .pf-bar-title { margin-top: 0.50rem; font-size: 1.1rem; font-weight: 800; color: var(--color-heading); }
+    .pf-bar-desc { margin-top: 0.4rem; font-size: 0.90rem; line-height: 1.5; color: var(--color-body); max-width: 90ch; text-align: left; }
     .pf-stack { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.75rem; }
     .pf-chip {
       padding: 0.15rem 0.55rem; border-radius: 9999px; font-size: 0.7rem; font-weight: 600;
       color: var(--color-muted); border: 1px solid var(--color-indigo-muted); background: #F8FAFF;
     }
 
-    .pf-flow { list-style: none; display: flex; flex-direction: column; align-items: stretch; gap: 0.3rem; margin: 1.1rem 0 1.25rem; padding-top: 1rem; border-top: 1px solid var(--color-indigo-light); }
-    .pf-step { min-width: 0; background: var(--color-indigo-light); border-radius: 0.65rem; padding: 0.55rem 0.75rem; }
+    .pf-flow { list-style: none; display: flex; align-items: stretch; gap: 0.4rem; margin: 1.1rem 0 1.25rem; padding-top: 1rem; border-top: 1px solid var(--color-indigo-light); }
+    .pf-step { flex: 1; min-width: 0; background: var(--color-indigo-light); border-radius: 0.65rem; padding: 0.55rem 0.75rem; }
     .pf-step-name { display: block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-indigo); margin-bottom: 0.2rem; }
     .pf-step-detail { display: block; font-size: 0.78rem; line-height: 1.45; color: var(--color-body); }
-    .pf-arrow { align-self: center; color: var(--color-indigo-muted); font-weight: 700; line-height: 1; transform: rotate(90deg); }
+    .pf-arrow { align-self: center; flex: none; color: var(--color-indigo-muted); font-weight: 700; line-height: 1; }
 
-    @media (max-width: 720px) {
+    @media (max-width: 1000px) {
       .pf-list { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
       .pf-bar { padding: 1.25rem 1.25rem 1.25rem 1.5rem; }
+      .pf-flow { flex-direction: column; }
+      .pf-arrow { transform: rotate(90deg); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -319,7 +323,7 @@
               h('a', { href: "https://linkedin.com/in/brucealee", target: "_blank", rel: "noopener noreferrer", style: linkStyle }, 'LinkedIn')
             ),
             h('div', null,
-              h('a', { href: "https://github.com/Brucelee352/marketplace_pipeline/blob/master/misc/BruceLee_2026Resume_h.pdf", target: "_blank", rel: "noopener noreferrer", style: linkStyle }, 'Resume'),
+              h('a', { href: "https://github.com/Brucelee352/brucea-lee.com/blob/main/BruceLee_2026Resume_h.pdf", target: "_blank", rel: "noopener noreferrer", style: linkStyle }, 'Resume'),
               h('a', { href: "mailto:brucelee352@gmail.com", style: linkStyle }, 'Email')
             )
           )
