@@ -287,17 +287,17 @@
         href: "https://kro.brucea-lee.com",
       },
       {
-        category: "Job Market Analytics",
-        title: "Jooble.com Job Listings Dashboard",
-        description: "Searches the Jooble API for job listings and reads each snippet for seniority, minimum years of experience, skills, and salary converted to an annual figure. Results go on a US map, five charts, and a sortable table you can email to yourself as a CSV.",
+        category: "Employment Analytics",
+        title: "Job Listings Tracker",
+        description: "Searches the Jooble.org API for job listings and reads each snippet for seniority, minimum years of experience, skills, and salary converted to an annual figure. Results go on a US map, five charts, and a sortable table you can email to yourself as a CSV.",
         stack: ["Python", "Dash", "Mantine", "Cloud Run", "Gmail SMTP"],
         pipeline: [
-          { name: "Fetch",   detail: "Jooble API search by keyword, location, and remote flag, up to 21 days back" },
+          { name: "Fetch",   detail: "Jooble.org API search by keyword, location, and remote flag, up to 21 days back" },
           { name: "Parse",   detail: "Seniority, years of experience, about 45 skills, and salary as annual USD" },
           { name: "Geocode", detail: "About 60 major cities, falling back to state centroids" },
           { name: "Serve",   detail: "Dash app on Cloud Run with the API key in Secret Manager; CSVs mailed over SMTP" },
         ],
-        href: "https://jooble.brucea-lee.com",
+        href: "https://jobs.brucea-lee.com",
       },
     ];
 
